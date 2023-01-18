@@ -13,7 +13,9 @@ namespace hubdejogos.Services{
         public void NewGame(){
             while(!board.isEndGame()){
                 ChessView.showBoard(board);
-                Board.MovePiece(board,Board.SelectPiece(board));
+                Board.SelectPiece(board);
+                Board.MovePiece(board);
+                Board.ShiftTurn(board);
             }
         }
     }

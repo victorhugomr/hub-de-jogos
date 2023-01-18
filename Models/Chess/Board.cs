@@ -5,9 +5,9 @@ namespace hubdejogos.Models.Chess{
 
     public class Board{
         
-        private Piece[,] Position { get; set; }
-        private Piece? SelectedPiece { get; set; } = null;
-        private Color Turn = Color.WHITE;
+        public Piece[,] Position { get; set; }
+        public Piece? SelectedPiece { get; set; } = null;
+        public Color Turn { get; set; }
 
         public Board(){
             Position = new Piece[8,8];
@@ -33,10 +33,11 @@ namespace hubdejogos.Models.Chess{
             for(int j=0; j<=7; j++){
                 Position[6,j] = new Pawn(6,j,Color.BLACK,"P");
             }
+            Turn = Color.WHITE;
         }
 
         public Piece GetPiece(int line, int column){
-            return Position[line, column];
+            return Position[line,column];
         }
 
         public static int GetLine(){
@@ -60,47 +61,74 @@ namespace hubdejogos.Models.Chess{
                 }
             }while(column<1 || column>8);
 
-            return column-1;
+            return column-1; //transforma o inserido pelo usuário em index
         }
 
-        public static void AddPiece(Board board, Piece piece, int destinyLine, int destinyColumn){
-            board.Position[destinyLine, destinyColumn] = piece;
+        public static void AddPiece(Board board, int destinyLine, int destinyColumn){
+            board.Position[destinyLine, destinyColumn] = board.SelectedPiece;
+            board.SelectedPiece.Line = destinyLine;
+            board.SelectedPiece.Column = destinyColumn;
         }
 
-        public static void RemovePiece(Board board, int line, int column){
+        public static void RemovePiece(Board board){
+            board.Position[board.SelectedPiece.Line, board.SelectedPiece.Column] = null;
         }
 
-        public static Piece SelectPiece(Board board){
+        public static void SelectPiece(Board board){
             int line;
             int column;
 
-            ChessView.SelectLineScreen();
-            line = GetLine();
-            ChessView.SelectColumnScreen();
-            column = GetColumn();
-
-            return board.GetPiece(line,column); //transforma o inserido pelo usuário em index
+            do{
+                do{
+                    ChessView.showBoard(board);
+                    ChessView.SelectPieceLine();
+                    line = GetLine();
+                    ChessView.showBoard(board);
+                    ChessView.SelectPieceColumn();
+                    column = GetColumn();
+                    if(board.Position[line,column] == null){
+                        ChessView.showBoard(board);
+                        ChessView.InvalidPiece();
+                    }
+                }while(board.Position[line,column] == null);
+                
+                if(board.Position[line,column].Color != board.Turn){
+                    ChessView.showBoard(board);
+                    ChessView.InvalidTurn();
+                }
+            }while(board.Position[line,column].Color != board.Turn);
+            
+            board.SelectedPiece = board.GetPiece(line, column);
         }
 
-        public static void MovePiece(Board board, Piece piece){
+        public static void MovePiece(Board board){
             int destinyLine;
             int destinyColumn;
+            bool isValid = false;
 
-            destinyLine = GetLine();
-            destinyColumn = GetColumn();
+            do{
+                ChessView.showBoard(board);
+                ChessView.SelectDestinyLine();
+                destinyLine = GetLine();
+                ChessView.showBoard(board);
+                ChessView.SelectDestinyColumn();
+                destinyColumn = GetColumn();
 
-            if(piece.moveValidate(destinyLine,destinyColumn)){
-                AddPiece(board,piece,destinyLine,destinyColumn);
-                RemovePiece(board, piece.Line, piece.Column);
-            }
+                isValid = board.SelectedPiece.moveValidate(board, destinyLine, destinyColumn);
+                if(!isValid){
+                    //Esse destino não é válido
+                }
+            }while(!isValid);
+            RemovePiece(board);
+            AddPiece(board, destinyLine, destinyColumn);
         }
 
-        public void shiftTurn(){
-            if(Turn == Color.WHITE){
-                Turn = Color.BLACK;
+        public static void ShiftTurn(Board board){
+            if(board.Turn == Color.WHITE){
+                board.Turn = Color.BLACK;
             }
-            else if(Turn == Color.BLACK){
-                Turn = Color.WHITE;
+            else if(board.Turn == Color.BLACK){
+                board.Turn = Color.WHITE;
             }
         }
 

@@ -18,7 +18,7 @@ namespace hubdejogos.Models.Chess{
             Selected = false;
         }
 
-        public abstract bool moveValidate(int destinyLine, int destinyColumn);
+        public abstract bool moveValidate(Board board, int destinyLine, int destinyColumn);
 
     }
 }

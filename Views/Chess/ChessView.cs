@@ -13,7 +13,14 @@ namespace hubdejogos.Views.Chess{
                         Console.Write("-");
                     }
                     else{
-                        Console.Write(board.GetPiece(i,j).Image);
+                        if(board.Position[i,j].Color == Color.WHITE){
+                            Console.Write(board.GetPiece(i,j).Image);
+                        }
+                        else{
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Write(board.GetPiece(i,j).Image);
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
                     }
                     Console.Write(" ");
                 }
@@ -22,12 +29,32 @@ namespace hubdejogos.Views.Chess{
             Console.WriteLine("\n    A B C D E F G H\n");
         }
 
-        public static void SelectLineScreen(){
-            Console.WriteLine("Por favor, insira a linha da peça que deseja movimentar");
+        public static void SelectPieceLine(){
+            Console.WriteLine("Por favor, insira a LINHA da PEÇA que deseja movimentar");
         }
 
-        public static void SelectColumnScreen(){
-            Console.WriteLine("Por favor, insira a coluna da peça que deseja movimentar");
+        public static void SelectPieceColumn(){
+            Console.WriteLine("Por favor, insira a COLUNA da PEÇA que deseja movimentar");
+        }
+
+        public static void SelectDestinyLine(){
+            Console.WriteLine("Por favor, insira a LINHA de DESTINO");
+        }
+
+        public static void SelectDestinyColumn(){
+            Console.WriteLine("Por favor, insira a COLUNA de DESTINO");
+        }
+
+        public static void InvalidTurn(){
+            Console.WriteLine("A peça selecionada é inválida. Não é o turno desse jogador");
+            Console.WriteLine("\nPressione ENTER para continuar");
+            Console.ReadLine();
+        }
+
+        public static void InvalidPiece(){
+            Console.WriteLine("A posição selecionada é inválida. Não possui uma peça válida nessa posição");
+            Console.WriteLine("\nPressione ENTER para continuar");
+            Console.ReadLine();
         }
     }
 }
