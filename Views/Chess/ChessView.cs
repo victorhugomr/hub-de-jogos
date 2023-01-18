@@ -1,5 +1,4 @@
 using hubdejogos.Models.Chess;
-using hubdejogos.Services;
 
 namespace hubdejogos.Views.Chess{
 
@@ -20,8 +19,15 @@ namespace hubdejogos.Views.Chess{
                 }
                 Console.Write("\n");
             }
-            Console.WriteLine("\n    A B C D E F G H");
-            Console.ReadLine();
+            Console.WriteLine("\n    A B C D E F G H\n");
+        }
+
+        public static void SelectLineScreen(){
+            Console.WriteLine("Por favor, insira a linha da peça que deseja movimentar");
+        }
+
+        public static void SelectColumnScreen(){
+            Console.WriteLine("Por favor, insira a coluna da peça que deseja movimentar");
         }
     }
 }

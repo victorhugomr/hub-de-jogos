@@ -5,12 +5,16 @@ namespace hubdejogos.Services{
 
     public class Chess{
         public Board board;
+
         public Chess(){
             board = new Board();
         }
 
         public void NewGame(){
-            ChessView.showBoard(board);
+            while(!board.isEndGame()){
+                ChessView.showBoard(board);
+                Board.MovePiece(board,Board.SelectPiece(board));
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using hubdejogos.Models.Chess.Pieces;
+using hubdejogos.Views.Chess;
 
 namespace hubdejogos.Models.Chess{
 
@@ -38,18 +39,60 @@ namespace hubdejogos.Models.Chess{
             return Position[line, column];
         }
 
-        public void AddPiece(Piece piece, int line, int column){
-            Position[line, column] = piece;
+        public static int GetLine(){
+            int line;
+            do{
+                int.TryParse(Console.ReadLine(), out line);
+                if(line<1 || line>8){
+                    //Erro: essa linha não existe
+                }
+            }while(line<1 || line>8);
+
+            return line-1;
         }
 
-        public void SelectPiece(Piece piece){
-            /* if(piece.isSelected()){
+        public static int GetColumn(){
+            int column;
+            do{
+                int.TryParse(Console.ReadLine(), out column);
+                if(column<1 || column>8){
+                    //Erro: essa coluna não existe
+                }
+            }while(column<1 || column>8);
+
+            return column-1;
+        }
+
+        public static void AddPiece(Board board, Piece piece, int destinyLine, int destinyColumn){
+            board.Position[destinyLine, destinyColumn] = piece;
+        }
+
+        public static void RemovePiece(Board board, int line, int column){
+        }
+
+        public static Piece SelectPiece(Board board){
+            int line;
+            int column;
+
+            ChessView.SelectLineScreen();
+            line = GetLine();
+            ChessView.SelectColumnScreen();
+            column = GetColumn();
+
+            return board.GetPiece(line,column); //transforma o inserido pelo usuário em index
+        }
+
+        public static void MovePiece(Board board, Piece piece){
+            int destinyLine;
+            int destinyColumn;
+
+            destinyLine = GetLine();
+            destinyColumn = GetColumn();
+
+            if(piece.moveValidate(destinyLine,destinyColumn)){
+                AddPiece(board,piece,destinyLine,destinyColumn);
+                RemovePiece(board, piece.Line, piece.Column);
             }
-            else{
-            } */
-        }
-
-        public void MovePiece(Piece piece, int line, int column){
         }
 
         public void shiftTurn(){
@@ -59,6 +102,10 @@ namespace hubdejogos.Models.Chess{
             else if(Turn == Color.BLACK){
                 Turn = Color.WHITE;
             }
+        }
+
+        public bool isEndGame(){
+            return false;
         }
     }
 }
