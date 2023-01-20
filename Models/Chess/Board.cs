@@ -36,6 +36,18 @@ namespace hubdejogos.Models.Chess{
             Turn = Color.WHITE;
         }
 
+        public static void MovePiece(Board board){
+            int destinyLine;
+            int destinyColumn;
+
+            do{
+                board.SelectPiece(board);
+                SelectDestiny(board, out destinyLine, out destinyColumn);
+            }while(!board.isValidDestiny(board, destinyLine, destinyColumn));
+            board.RemovePiece(board);
+            board.AddPiece(board, destinyLine, destinyColumn);
+        }
+
         public Piece GetPiece(int line, int column){
             return Position[line,column];
         }
@@ -64,17 +76,20 @@ namespace hubdejogos.Models.Chess{
             return column-1; //transforma o inserido pelo usuário em index
         }
 
-        public static void AddPiece(Board board, int destinyLine, int destinyColumn){
-            board.Position[destinyLine, destinyColumn] = board.SelectedPiece;
-            board.SelectedPiece.Line = destinyLine;
-            board.SelectedPiece.Column = destinyColumn;
+        public void AddPiece(Board board, int destinyLine, int destinyColumn){
+            if(SelectedPiece != null){
+                Position[destinyLine, destinyColumn] = SelectedPiece;
+                SelectedPiece.Line = destinyLine;
+                SelectedPiece.Column = destinyColumn;
+            }
         }
 
-        public static void RemovePiece(Board board){
-            board.Position[board.SelectedPiece.Line, board.SelectedPiece.Column] = null;
+        public void RemovePiece(Board board){
+            if(SelectedPiece != null)
+                Position[SelectedPiece.Line, SelectedPiece.Column] = null;
         }
 
-        public static void SelectPiece(Board board){
+        public void SelectPiece(Board board){
             int line;
             int column;
 
@@ -86,26 +101,22 @@ namespace hubdejogos.Models.Chess{
                     ChessView.showBoard(board);
                     ChessView.SelectPieceColumn();
                     column = GetColumn();
-                    if(board.Position[line,column] == null){
+                    if(Position[line,column] == null){
                         ChessView.showBoard(board);
                         ChessView.InvalidPiece();
                     }
-                }while(board.Position[line,column] == null);
-                
-                if(board.Position[line,column].Color != board.Turn){
+                }while(Position[line,column] == null);
+                    
+                if(Position[line,column].Color != Turn){
                     ChessView.showBoard(board);
                     ChessView.InvalidTurn();
                 }
-            }while(board.Position[line,column].Color != board.Turn);
-            
-            board.SelectedPiece = board.GetPiece(line, column);
+            }while(Position[line,column].Color != Turn);
+
+            SelectedPiece = GetPiece(line, column);
         }
 
-        public static void MovePiece(Board board){
-            int destinyLine;
-            int destinyColumn;
-            bool isValid = false;
-
+        public static void SelectDestiny(Board board, out int destinyLine, out int destinyColumn){
             do{
                 ChessView.showBoard(board);
                 ChessView.SelectDestinyLine();
@@ -113,14 +124,17 @@ namespace hubdejogos.Models.Chess{
                 ChessView.showBoard(board);
                 ChessView.SelectDestinyColumn();
                 destinyColumn = GetColumn();
-
-                isValid = board.SelectedPiece.moveValidate(board, destinyLine, destinyColumn);
-                if(!isValid){
-                    //Esse destino não é válido
+                if((destinyLine>7 || destinyLine<0) || (destinyColumn>7 || destinyColumn<0)){
+                    //Destino fora do Tabuleiro
                 }
-            }while(!isValid);
-            RemovePiece(board);
-            AddPiece(board, destinyLine, destinyColumn);
+            }while((destinyLine>7 || destinyLine<0) || (destinyColumn>7 || destinyColumn<0));
+        }
+
+        public bool isValidDestiny(Board board, int destinyLine, int destinyColumn){
+            if(SelectedPiece != null)
+                return SelectedPiece.moveValidate(board, destinyLine, destinyColumn);
+            else
+                return false;
         }
 
         public static void ShiftTurn(Board board){

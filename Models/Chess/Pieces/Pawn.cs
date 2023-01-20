@@ -9,17 +9,27 @@ namespace hubdejogos.Models.Chess.Pieces{
 
         public override bool moveValidate(Board board, int destinyLine, int destinyColumn){
             if(board.Turn == Color.WHITE){
-                if(board.SelectedPiece.Column == destinyColumn){
+                //valida movimento vertical
+                if(board.SelectedPiece != null && board.SelectedPiece.Column == destinyColumn){
+                    //verifica se há uma peça no caminho
+                    for(int i=board.SelectedPiece.Line+1; i<=destinyLine; i++){
+                        if(board.GetPiece(i,destinyColumn) != null){
+                            return false;
+                        }
+                    }
                     if(firstMove){
+                        //verifica se andou 1 ou 2 casa no primeiro movimento
                         if(destinyLine - board.SelectedPiece.Line > 2 || destinyLine - board.SelectedPiece.Line < 1){
                             return false;
                         }
                     }
+                    //verifica se andou mais de 1 casa
                     else if(destinyLine - board.SelectedPiece.Line != 1){
                         return false;
                     }
                 }
-                else if(Math.Abs(board.SelectedPiece.Column - destinyColumn) == 1){
+                //valida movimento de eliminar peça na diagonal
+                else if(board.SelectedPiece != null && Math.Abs(board.SelectedPiece.Column - destinyColumn) == 1){
                     if(Math.Abs(board.SelectedPiece.Line - destinyLine) != 1){
                         return false;
                     }
@@ -30,12 +40,17 @@ namespace hubdejogos.Models.Chess.Pieces{
                 else{
                     return false;
                 }
+                
                 firstMove = false;
-
                 return true;
             }
             else if(board.Turn == Color.BLACK){
-                if(board.SelectedPiece.Column == destinyColumn){
+                if(board.SelectedPiece != null && board.SelectedPiece.Column == destinyColumn){
+                    for(int i=board.SelectedPiece.Line-1; i>=destinyLine; i--){
+                        if(board.GetPiece(i,destinyColumn) != null){
+                            return false;
+                        }
+                    }
                     if(firstMove){
                         if(board.SelectedPiece.Line - destinyLine > 2 || board.SelectedPiece.Line - destinyLine < 1){
                             return false;
@@ -45,7 +60,7 @@ namespace hubdejogos.Models.Chess.Pieces{
                         return false;
                     }
                 }
-                else if(Math.Abs(board.SelectedPiece.Column - destinyColumn) == 1){
+                else if(board.SelectedPiece != null && Math.Abs(board.SelectedPiece.Column - destinyColumn) == 1){
                     if(Math.Abs(board.SelectedPiece.Line - destinyLine) != 1){
                         return false;
                     }
