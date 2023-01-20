@@ -61,7 +61,7 @@ namespace hubdejogos.Models.Chess{
                 }
             }while(line<1 || line>8);
 
-            return line-1;
+            return line-1; //transforma a linha inserida pelo usuário em index
         }
 
         public static int GetColumn(){
@@ -73,7 +73,7 @@ namespace hubdejogos.Models.Chess{
                 }
             }while(column<1 || column>8);
 
-            return column-1; //transforma o inserido pelo usuário em index
+            return column-1; //transforma a coluna inserida pelo usuário em index
         }
 
         public void AddPiece(Board board, int destinyLine, int destinyColumn){
@@ -146,8 +146,21 @@ namespace hubdejogos.Models.Chess{
             }
         }
 
-        public bool isEndGame(){
-            return false;
+        public bool isEndGame(Board board){
+            int kingsCount=0;
+            for(int i=0; i<=7; i++){
+                for(int j=0; j<=7; j++){
+                    if(board.Position[i,j] != null && board.Position[i,j].Image == "K"){
+                        kingsCount += 1;
+                    }
+                }
+            }
+            if(kingsCount==1){
+                return true;
+            }
+            else{
+                return false;
+            }
         }
     }
 }
