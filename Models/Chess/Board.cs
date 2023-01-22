@@ -1,3 +1,4 @@
+using hubdejogos.Services;
 using hubdejogos.Models.Chess.Pieces;
 using hubdejogos.Views.Chess;
 
@@ -146,16 +147,30 @@ namespace hubdejogos.Models.Chess{
             }
         }
 
-        public bool isEndGame(Board board){
+        public bool isEndGame(Board board, Account player1, Account player2){
             int kingsCount=0;
+            Color kingsColor = new Color();
             for(int i=0; i<=7; i++){
                 for(int j=0; j<=7; j++){
                     if(board.Position[i,j] != null && board.Position[i,j].Image == "K"){
                         kingsCount += 1;
+                        kingsColor = board.Position[i,j].Color;
                     }
                 }
             }
             if(kingsCount==1){
+                if(kingsColor == Color.WHITE){
+                    player1.ChessPoints += 1;
+                    ChessView.showBoard(board);
+                    JsonServices.UpdateScoreJson(player1);
+                    ChessView.Player1Victory();
+                }
+                else if(kingsColor == Color.BLACK){
+                    player2.ChessPoints += 1;
+                    ChessView.showBoard(board);
+                    JsonServices.UpdateScoreJson(player2);
+                    ChessView.Player2Victory();
+                }
                 return true;
             }
             else{

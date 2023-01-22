@@ -5,39 +5,68 @@ namespace hubdejogos.Services{
 
     public class Start{
 
-        public Start(){
-        }
-
         Account player1 = new Account();
         Account player2 = new Account();
+
+        public Start(){
+        }
 
         public void StartMenu(){
             int option;
             do{
                 Menu.MenuView();
+                Menu.StartView();
                 int.TryParse(Console.ReadLine(), out option);
 
                 switch(option){
                     case 1:
-                        TicTacToe ticTacToe = new TicTacToe();
-                        ticTacToe.NewGame();
+                        if(player1?.Nickname == null || player2?.Nickname == null){
+                            Menu.NotLoggedIn();
+                        }
+                        else{
+                            TicTacToe ticTacToe = new TicTacToe();
+                            ticTacToe.NewGame();
+                        }
                         break;
                     case 2:
-                        //Jogo2 jogo2 = new Jogo2();
-                        //jogo2.NewGame();
-                        break;
+                        /* if(player1 == null || player2 == null){
+                            Menu.NotLoggedIn();
+                            int.TryParse(Console.ReadLine(), out option);
+                        }
+                        else{
+                            Jogo2 jogo2 = new Jogo2();
+                            jogo2.NewGame();
+                        } */
+                            break;
                     case 3:
-                        Chess chess = new Chess();
-                        chess.NewGame();
-                        break;
+                        if(player1?.Nickname == null || player2?.Nickname == null){
+                            Menu.NotLoggedIn();
+                        }
+                        else{
+                            Chess chess = new Chess();
+                            chess.NewGame(player1, player2);
+                        }
+                            break;
                     case 4:
-                        //Scoreboard();
+                        Scoreboard.ShowScoreboard();
                         break;
                     case 5:
-                        AccountLogin.Login(player1, player2);
+                        AccountSettings.CreateAccount();
                         break;
                     case 6:
-                        AccountSettings.CreateAccount();
+                        if(player1?.Nickname == null){
+                            player1 = AccountLogin.Login();
+                        }
+                        else if(player2?.Nickname == null){
+                            player2 = AccountLogin.Login();
+                        }
+                        else{
+                            //Os 2 jogadores já estão logados. Se quiser entrar com outro jogador, é necessário realizar o logout.
+                            AccountSettingsView.PlayersLoggedIn();
+                        }
+                        break;
+                    case 7:
+                        //Realiza o logout
                         break;
                     case 0:
                         Console.Clear();

@@ -6,8 +6,8 @@ namespace hubdejogos.Services{
     public class AccountLogin{
         public AccountLogin(){
         }
-        public static void Login(Account player1, Account player2){
-            List<Account> accounts = JsonServices.ReadJson(Path.Combine(Directory.GetCurrentDirectory() + @"\accounts.json"));
+        public static Account Login(){
+            List<Account> accounts = JsonServices.ReadJson();
 
             AccountSettingsView.LoginScreen();
 			string? nickname = Console.ReadLine();
@@ -16,21 +16,18 @@ namespace hubdejogos.Services{
                 string? password = Console.ReadLine();
                 int index = GetIndex(accounts, nickname);
                 if(password == accounts[index].Password){
-                    if(player1.Nickname == null){
-                        player1 = accounts[index];
-                        AccountSettingsView.LoginSuccessfulScreen();
-                    }
-                    else if(player2.Nickname == null){
-                        player2 = accounts[index];
-                        AccountSettingsView.LoginSuccessfulScreen();
-                    }
-                    else{
-                        AccountSettingsView.PlayerFullScreen();
-                    }
+                    AccountSettingsView.LoginSuccessfulScreen();
+                    return accounts[index];
+                }
+                else{
+                    AccountSettingsView.PasswordDoesntMatch();
+                    return new Account();
                 }
             }
             else{
                 //Nickname não foi encontrado na base de dados.
+                AccountSettingsView.UserNotFound();
+                return new Account();
             }
         }
 

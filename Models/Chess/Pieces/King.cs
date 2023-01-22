@@ -12,8 +12,10 @@ namespace hubdejogos.Models.Chess.Pieces{
                     return false;
                 }
                 //Verifica se tem peça da mesma cor no caminho
-                if(board.GetPiece(destinyLine,destinyColumn).Color == board.SelectedPiece.Color){
-                    return false;
+                if(board.GetPiece(destinyLine,destinyColumn)?.Color != null){
+                    if(board.GetPiece(destinyLine,destinyColumn).Color == board.SelectedPiece.Color){
+                        return false;
+                    }
                 }
                 //Verifica se o destino é igual a origem
                 if(board.SelectedPiece.Line == destinyLine && board.SelectedPiece.Column == destinyColumn){

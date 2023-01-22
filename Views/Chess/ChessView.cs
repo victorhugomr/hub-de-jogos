@@ -56,5 +56,17 @@ namespace hubdejogos.Views.Chess{
             Console.WriteLine("\nPressione ENTER para continuar");
             Console.ReadLine();
         }
+
+        internal static void Player1Victory(){
+            Console.WriteLine("Vitória do Jogador 1 !!!");
+            Console.WriteLine("\nPressione ENTER para continuar");
+            Console.ReadLine();
+        }
+
+        internal static void Player2Victory(){
+            Console.WriteLine("Vitória do Jogador 2 !!!");
+            Console.WriteLine("\nPressione ENTER para continuar");
+            Console.ReadLine();
+        }
     }
 }

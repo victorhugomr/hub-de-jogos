@@ -24,14 +24,14 @@ namespace hubdejogos.Services{
 
             if(File.Exists(path)){
                 if(new FileInfo(path).Length != 0){
-                    accounts = JsonServices.ReadJson(path);
+                    accounts = JsonServices.ReadJson();
                 }
             }
             else{
                 File.Create(path).Close();
             }
             accounts.Add(newAccount);
-            JsonServices.WriteJson(accounts, path);
+            JsonServices.WriteJson(accounts);
         }
 
         public void ChangePassword(){
