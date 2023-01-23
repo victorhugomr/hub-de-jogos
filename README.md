@@ -15,7 +15,7 @@ Tabela de Conteúdos
    * [Features](#features)
    * Como usar
       * [Pré-requisitos](#pré-requisitos)
-      * [Executando o Hub de Jogos](#executando)
+      * [Executando o Hub de Jogos](#pré-requisitos)
    * [Tecnologias](#autor)
    * [Autor](#autor)
 <!--te-->
