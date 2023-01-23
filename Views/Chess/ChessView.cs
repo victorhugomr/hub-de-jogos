@@ -51,6 +51,14 @@ namespace hubdejogos.Views.Chess{
             Console.ReadLine();
         }
 
+        public static void InvalidLine(){
+            Console.WriteLine("A linha selecionada é inválida. Por favor, digite um número de 1 a 8.");
+        }
+
+        public static void InvalidColumn(){
+            Console.WriteLine("A coluna selecionada é inválida. Por favor, digite um número de 1 a 8.");
+        }
+
         public static void InvalidPiece(){
             Console.WriteLine("A posição selecionada é inválida. Não possui uma peça válida nessa posição");
             Console.WriteLine("\nPressione ENTER para continuar");

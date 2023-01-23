@@ -53,24 +53,26 @@ namespace hubdejogos.Models.Chess{
             return Position[line,column];
         }
 
-        public static int GetLine(){
+        public static int GetLine(Board board){
             int line;
             do{
                 int.TryParse(Console.ReadLine(), out line);
                 if(line<1 || line>8){
-                    //Erro: essa linha não existe
+                    ChessView.showBoard(board);
+                    ChessView.InvalidLine();
                 }
             }while(line<1 || line>8);
 
             return line-1; //transforma a linha inserida pelo usuário em index
         }
 
-        public static int GetColumn(){
+        public static int GetColumn(Board board){
             int column;
             do{
                 int.TryParse(Console.ReadLine(), out column);
                 if(column<1 || column>8){
-                    //Erro: essa coluna não existe
+                    ChessView.showBoard(board);
+                    ChessView.InvalidColumn();
                 }
             }while(column<1 || column>8);
 
@@ -98,10 +100,10 @@ namespace hubdejogos.Models.Chess{
                 do{
                     ChessView.showBoard(board);
                     ChessView.SelectPieceLine();
-                    line = GetLine();
+                    line = GetLine(board);
                     ChessView.showBoard(board);
                     ChessView.SelectPieceColumn();
-                    column = GetColumn();
+                    column = GetColumn(board);
                     if(Position[line,column] == null){
                         ChessView.showBoard(board);
                         ChessView.InvalidPiece();
@@ -121,10 +123,10 @@ namespace hubdejogos.Models.Chess{
             do{
                 ChessView.showBoard(board);
                 ChessView.SelectDestinyLine();
-                destinyLine = GetLine();
+                destinyLine = GetLine(board);
                 ChessView.showBoard(board);
                 ChessView.SelectDestinyColumn();
-                destinyColumn = GetColumn();
+                destinyColumn = GetColumn(board);
                 if((destinyLine>7 || destinyLine<0) || (destinyColumn>7 || destinyColumn<0)){
                     //Destino fora do Tabuleiro
                 }

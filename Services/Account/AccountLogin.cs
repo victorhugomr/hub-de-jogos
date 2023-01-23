@@ -4,8 +4,10 @@ using hubdejogos.Views;
 namespace hubdejogos.Services{
 
     public class AccountLogin{
+
         public AccountLogin(){
         }
+
         public static Account Login(){
             List<Account> accounts = JsonServices.ReadJson();
 
@@ -28,6 +30,20 @@ namespace hubdejogos.Services{
                 //Nickname não foi encontrado na base de dados.
                 AccountSettingsView.UserNotFound();
                 return new Account();
+            }
+        }
+
+        public static void Logout(Account player1, Account player2){
+            AccountSettingsView.LogoutScreen();
+            string? nickname = Console.ReadLine();
+            if(nickname == player1.Nickname){
+                player1.Nickname = null;
+            }
+            else if(nickname == player2.Nickname){
+                player2.Nickname = null;
+            }
+            else{
+                AccountSettingsView.UserNotFound();
             }
         }
 

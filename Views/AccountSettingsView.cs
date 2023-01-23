@@ -8,17 +8,18 @@ namespace hubdejogos.Views{
 
         public static void CreateAccountName(){
             Console.Clear();
-            Console.WriteLine("CreateAccountName");
+            Console.WriteLine("Por favor, insira o seu nome");
         }
 
         internal static void CreateAccountLogin(){
             Console.Clear();
-            Console.WriteLine("CreateAccountLogin");
+            Console.WriteLine("Por favor, inisira seu nome de usuário");
+            Console.WriteLine("(Esse nome será utilizado para realizar o login futuramente)");
         }
 
         internal static void CreateAccountPassword(){
             Console.Clear();
-            Console.WriteLine("CreateAccountPassword");
+            Console.WriteLine("Por favor, insira uma senha");
         }
 
         internal static void LoginScreen(){
@@ -26,6 +27,12 @@ namespace hubdejogos.Views{
             Console.WriteLine("TELA DE LOGIN\n");
             Console.WriteLine("(O primeiro jogador a realizar o login será considerado o Jogador 1)\n");
             Console.WriteLine("Por favor, insira o nickname cadastrado.");
+        }
+
+        internal static void LogoutScreen(){
+            Console.Clear();
+            Console.WriteLine("TELA DE LOGOUT\n");
+            Console.WriteLine("Por favor, insira o nome de usuário (nickname) do usuário que deseja realizar logout.");
         }
 
         internal static void PasswordScreen(){
@@ -56,6 +63,12 @@ namespace hubdejogos.Views{
             Console.Clear();
             Console.WriteLine("Não foi possível realizar o login, pois todos os jogadores estão logados.");
             Console.WriteLine("Se quiser entrar com outro usuário, é necessário realizar o logout. \n\nPressione ENTER para continuar.");
+            Console.ReadLine();
+        }
+
+        internal static void PlayersNotLoggedIn(){
+            Console.Clear();
+            Console.WriteLine("Não foi possível realizar o logout, pois não há jogadores logados. \n\nPressione ENTER para continuar.");
             Console.ReadLine();
         }
     }

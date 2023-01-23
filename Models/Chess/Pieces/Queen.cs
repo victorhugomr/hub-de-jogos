@@ -101,7 +101,7 @@ namespace hubdejogos.Models.Chess.Pieces{
             else if(board.SelectedPiece?.Line == destinyLine){
                 if(board.SelectedPiece.Column < destinyColumn){
                     //Verifica se o caminho está livre
-                    for(int i=board.SelectedPiece.Column+1; i<destinyColumn; i++){
+                    for(int i=board.SelectedPiece.Column; i<destinyColumn; i++){
                         if(board.GetPiece(destinyLine,i) != null && (board.GetPiece(destinyLine,i).Color == board.SelectedPiece.Color)){
                             return false;
                         }
@@ -145,7 +145,10 @@ namespace hubdejogos.Models.Chess.Pieces{
                 else{
                     if(board.SelectedPiece.Line > destinyLine){
                         //Verifica se o caminho está livre
-                        for(int i=board.SelectedPiece.Line+1; i>destinyLine; i--){
+                        for(int i=board.SelectedPiece.Line; i>destinyLine; i--){
+                            Console.WriteLine(board.GetPiece(i,destinyColumn).Color);
+                            Console.WriteLine(board.SelectedPiece.Color);
+                            Console.ReadLine();
                             if(board.GetPiece(i,destinyColumn) != null && (board.GetPiece(i,destinyColumn).Color == board.SelectedPiece.Color)){
                                 return false;
                             }

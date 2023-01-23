@@ -1,4 +1,6 @@
+using hubdejogos.Models;
 using hubdejogos.Models.TicTacToe;
+using hubdejogos.Services;
 using hubdejogos.Views.TicTacToe;
 
 namespace hubdejogos.Services{
@@ -16,11 +18,11 @@ namespace hubdejogos.Services{
             movesQuantity = 0;
         }
 
-        public void NewGame(){
+        public void NewGame(Account player1, Account player2){
             while(!endGame){
                 TicTacToeView.showBoard(board);
                 choosePosition();
-                endGame = isEndGame();
+                endGame = isEndGame(player1, player2);
             }
         }
 
@@ -65,25 +67,8 @@ namespace hubdejogos.Services{
             movesQuantity += 1;
         }
 
-        private bool isEndGame()
-        {
-            if(movesQuantity >= 5){
-                if(checkHorizontal() || checkVertical() || checkDiagonal()){
-                    TicTacToeView.showBoard(board);
-                    TicTacToeView.victoryScreen();
-                    return true;
-                }
-                else if(checkDraw()){
-                    TicTacToeView.showBoard(board);
-                    TicTacToeView.drawScreen();
-                    return true;
-                }
-            }
-            shiftTurn();
-            return false;
-        }
 
-        private bool checkHorizontal()
+        private bool checkHorizontal(Account player1, Account player2)
         {
             if(board.position[0] == board.position[1] && board.position[0] == board.position[2])
                 return true;
@@ -96,24 +81,59 @@ namespace hubdejogos.Services{
 
         }
 
-        private bool checkVertical()
+        private bool checkVertical(Account player1, Account player2)
         {
-            if(board.position[0] == board.position[3] && board.position[0] == board.position[6])
+            if(board.position[0] == board.position[3] && board.position[0] == board.position[6]){
+                if(board.position[0] == 'X'){
+                    player1.TicTacToePoints += 1;
+                }
+                else if(board.position[0] == 'O'){
+                    player2.TicTacToePoints += 1;
+                }
                 return true;
-            else if(board.position[1] == board.position[4] && board.position[1] == board.position[7])
+            }
+            else if(board.position[1] == board.position[4] && board.position[1] == board.position[7]){
+                if(board.position[1] == 'X'){
+                    player1.TicTacToePoints += 1;
+                }
+                else if(board.position[0] == 'O'){
+                    player2.TicTacToePoints += 1;
+                }
                 return true;
-            else if(board.position[2] == board.position[5] && board.position[2] == board.position[8])
+            }
+            else if(board.position[2] == board.position[5] && board.position[2] == board.position[8]){
+                if(board.position[2] == 'X'){
+                    player1.TicTacToePoints += 1;
+                }
+                else if(board.position[0] == 'O'){
+                    player2.TicTacToePoints += 1;
+                }
                 return true;
+            }
             else
                 return false;
         }
 
-        private bool checkDiagonal()
+        private bool checkDiagonal(Account player1, Account player2)
         {
-            if(board.position[0] == board.position[4] && board.position[0] == board.position[8])
+            if(board.position[0] == board.position[4] && board.position[0] == board.position[8]){
+                if(board.position[0] == 'X'){
+                    player1.TicTacToePoints += 1;
+                }
+                else if(board.position[0] == 'O'){
+                    player2.TicTacToePoints += 1;
+                }
                 return true;
-            else if(board.position[2] == board.position[4] && board.position[2] == board.position[6])
+            }
+            else if(board.position[2] == board.position[4] && board.position[2] == board.position[6]){
+                if(board.position[2] == 'X'){
+                    player1.TicTacToePoints += 1;
+                }
+                else if(board.position[0] == 'O'){
+                    player2.TicTacToePoints += 1;
+                }
                 return true;
+            }
             else
                 return false;
         }
@@ -134,6 +154,26 @@ namespace hubdejogos.Services{
             else if(turn == 'O'){
                 turn = 'X';
             }
+        }
+
+        private bool isEndGame(Account player1, Account player2)
+        {
+            if(movesQuantity >= 5){
+                if(checkHorizontal(player1, player2) || checkVertical(player1, player2) || checkDiagonal(player1, player2)){
+                    TicTacToeView.showBoard(board);
+                    JsonServices.UpdateScoreJson(player1);
+                    JsonServices.UpdateScoreJson(player2);
+                    TicTacToeView.victoryScreen();
+                    return true;
+                }
+                else if(checkDraw()){
+                    TicTacToeView.showBoard(board);
+                    TicTacToeView.drawScreen();
+                    return true;
+                }
+            }
+            shiftTurn();
+            return false;
         }
     }
 }

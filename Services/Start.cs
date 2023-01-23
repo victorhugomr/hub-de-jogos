@@ -25,7 +25,7 @@ namespace hubdejogos.Services{
                         }
                         else{
                             TicTacToe ticTacToe = new TicTacToe();
-                            ticTacToe.NewGame();
+                            ticTacToe.NewGame(player1, player2);
                         }
                         break;
                     case 2:
@@ -66,7 +66,12 @@ namespace hubdejogos.Services{
                         }
                         break;
                     case 7:
-                        //Realiza o logout
+                        if(player1?.Nickname == null && player2?.Nickname == null){
+                            AccountSettingsView.PlayersNotLoggedIn();
+                        }
+                        else{
+                            AccountLogin.Logout(player1, player2);
+                        }
                         break;
                     case 0:
                         Console.Clear();

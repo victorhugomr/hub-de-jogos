@@ -19,7 +19,9 @@ namespace hubdejogos.Services{
             string path = Path.Combine(Directory.GetCurrentDirectory() + @"\accounts.json");
             List<Account> accounts = new List<Account>();
             string json = File.ReadAllText(path);
-            accounts = JsonSerializer.Deserialize<List<Account>>(json)!;
+            if(json != ""){
+                accounts = JsonSerializer.Deserialize<List<Account>>(json)!;
+            }
 
             return accounts;
         }
