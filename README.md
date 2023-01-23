@@ -10,13 +10,14 @@ O Hub de Jogos contém 3 jogos (Jogo da Velha, um jogo a implementar e Xadrez). 
 Tabela de Conteúdos
 =================
 <!--ts-->
-   * [Sobre](#hub-de-jogos)
+   * [Sobre](#descrição-do-projeto)
    * [Tabela de Conteúdos](#tabela-de-conteúdos)
    * [Features](#features)
-   * [Como usar]
+   * Como usar
       * [Pré-requisitos](#pré-requisitos)
       * [Executando o Hub de Jogos](#executando-o-hub-de-jogos)
    * [Tecnologias](#tecnologias)
+   * [Autor](#autor)
 <!--te-->
 
 <h4 align="center"> 
