@@ -70,7 +70,10 @@ namespace hubdejogos.Services{
                             AccountSettingsView.PlayersNotLoggedIn();
                         }
                         else{
-                            AccountLogin.Logout(player1, player2);
+                            if(player1 != null)
+                                AccountLogin.Logout(player1);
+                            else if(player2 != null)
+                                AccountLogin.Logout(player2);
                         }
                         break;
                     case 0:

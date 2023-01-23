@@ -33,14 +33,11 @@ namespace hubdejogos.Services{
             }
         }
 
-        public static void Logout(Account player1, Account player2){
+        public static void Logout(Account player){
             AccountSettingsView.LogoutScreen();
             string? nickname = Console.ReadLine();
-            if(nickname == player1.Nickname){
-                player1.Nickname = null;
-            }
-            else if(nickname == player2.Nickname){
-                player2.Nickname = null;
+            if(nickname == player.Nickname){
+                player.Nickname = null;
             }
             else{
                 AccountSettingsView.UserNotFound();
