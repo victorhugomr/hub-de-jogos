@@ -11,10 +11,10 @@ Tabela de Conteúdos
 =================
 <!--ts-->
    * [Sobre](#hub-de-jogos)
-   * [Tabela de Conteúdos](#tabela-de-conteudo)
+   * [Tabela de Conteúdos](#tabela-de-conteúdos)
    * [Features](#features)
-   * [Como usar](#como-usar)
-      * [Pré-requisitos](#pre-requisitos)
+   * [Como usar]
+      * [Pré-requisitos](#pré-requisitos)
       * [Executando o Hub de Jogos](#executando-o-hub-de-jogos)
    * [Tecnologias](#tecnologias)
 <!--te-->
@@ -66,6 +66,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <a href="https://github.com/victorhugomr">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/22302873?v=4" width="100px;" alt=""/>
  <br />
- <sub><b>Victor Hugo</b></sub></a> <a href="https://github.com/victorhugomr">👨‍💻</a>
+ <sub><b>Victor Hugo</b></sub></a> <a href="https://github.com/victorhugomr">👨💻</a>
 
 Feito por Victor Hugo 👋🏽
