@@ -1,11 +1,11 @@
-# Hub de Jogos 😎
+# Hub de Jogos 🕹
 
 ## Descrição do Projeto
 Hub de jogos para o curso de formação avançada de Desenvolvedor Fullstack da Ímã (Fast Track).
 
 <img src="https://img.shields.io/static/v1?label=csharp&message=hub de jogos&color=7159c1&style=for-the-badge&logo=ghost"/>
 
-O Hub de Jogos contém 3 jogos (Jogo da Velha, um jogo a implementar e Xadrez). Os jogos ficam disponíveis quando há 2 jogadores logados na plataforma. Para possibilitar isso, existe a área de login e logout. Também é possível a criação de uma nova conta e seus dados, bem como as pontuações do jogador, são armazenados em um arquivo JSON (.json). É possível ver o placar das melhores pontuações separadas por jogo e ordenada pela classificação.
+O Hub de Jogos contém 3 jogos (Jogo da Velha, Batalha Naval e Xadrez). Os jogos ficam disponíveis quando há 2 jogadores logados na plataforma. Para possibilitar isso, existe a área de login e logout. Também é possível a criação de uma nova conta e seus dados, bem como as pontuações do jogador, são armazenados em um arquivo JSON (.json). É possível ver o placar das melhores pontuações separadas por jogo e ordenada pela classificação.
 
 Tabela de Conteúdos
 =================
@@ -21,13 +21,13 @@ Tabela de Conteúdos
 <!--te-->
 
 <h4 align="center"> 
-	🚧  Hub de Jogos 🚀 Em construção...  🚧
+	🚧  Hub de Jogos 🕹 Em construção...  🚧
 </h4>
 
 ### Features
 
 - [x] Jogo da Velha
-- [ ] Jogo 2
+- [ ] Batalha Naval
 - [x] Xadrez
 - [x] Cadastro de usuário
 - [x] Login/Logout de usuário
@@ -67,6 +67,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <a href="https://github.com/victorhugomr">
  <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/22302873?v=4" width="100px;" alt=""/>
  <br />
- <sub><b>Victor Hugo</b></sub></a> <a href="https://github.com/victorhugomr">👨💻</a>
+ <sub><b>Victor Hugo</b></sub></a> <a href="https://github.com/victorhugomr">😎💻</a>
 
 Feito por Victor Hugo 👋🏽
