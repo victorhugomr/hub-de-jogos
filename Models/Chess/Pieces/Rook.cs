@@ -6,9 +6,10 @@ namespace hubdejogos.Models.Chess.Pieces{
         }
 
         public override bool moveValidate(Board board, int destinyLine, int destinyColumn){
+            int i;
+
             if(board.SelectedPiece?.Line == destinyLine){
                 if(board.SelectedPiece.Column < destinyColumn){
-                    int i;
                     //Verifica se o caminho está livre
                     for(i=board.SelectedPiece.Column+1; i<=destinyColumn; i++){
                         if(board.GetPiece(destinyLine,i) != null && (board.GetPiece(destinyLine,i).Color == board.SelectedPiece.Color)){
@@ -17,12 +18,12 @@ namespace hubdejogos.Models.Chess.Pieces{
                     }
                     //Elimina a peça, caso seja de uma cor diferente
                     if(i == destinyColumn && board.GetPiece(destinyLine,i).Color != board.SelectedPiece.Color){
+                        firstMove = false;
                         return true;
                     }
                 }
                 else{
                     if(board.SelectedPiece.Column > destinyColumn){
-                        int i;
                         //Verifica se o caminho está livre
                         for(i=board.SelectedPiece.Column-1; i>=destinyColumn; i--){
                             if(board.GetPiece(destinyLine,i) != null && (board.GetPiece(destinyLine,i).Color == board.SelectedPiece.Color)){
@@ -31,6 +32,7 @@ namespace hubdejogos.Models.Chess.Pieces{
                         }
                         //Elimina a peça, caso seja de uma cor diferente
                         if(i == destinyColumn && board.GetPiece(destinyLine,i).Color != board.SelectedPiece.Color){
+                            firstMove = false;
                             return true;
                         }
                     }
@@ -39,7 +41,6 @@ namespace hubdejogos.Models.Chess.Pieces{
             }
             else if(board.SelectedPiece?.Column == destinyColumn){
                 if(board.SelectedPiece.Line < destinyLine){
-                    int i;
                     //Verifica se o caminho está livre
                     for(i=board.SelectedPiece.Line+1; i<=destinyLine; i++){
                         if(board.GetPiece(i,destinyColumn) != null && (board.GetPiece(i,destinyColumn).Color == board.SelectedPiece.Color)){
@@ -53,7 +54,6 @@ namespace hubdejogos.Models.Chess.Pieces{
                 }
                 else{
                     if(board.SelectedPiece.Line > destinyLine){
-                        int i;
                         //Verifica se o caminho está livre
                         for(i=board.SelectedPiece.Line-1; i>=destinyLine; i--){
                             if(board.GetPiece(i,destinyColumn) != null && (board.GetPiece(i,destinyColumn).Color == board.SelectedPiece.Color)){
@@ -76,7 +76,7 @@ namespace hubdejogos.Models.Chess.Pieces{
             if(board.SelectedPiece.Line == destinyLine && board.SelectedPiece.Column == destinyColumn){
                 return false;
             }
-
+            firstMove = false;
             return true;
         }
     }

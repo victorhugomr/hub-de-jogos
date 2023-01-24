@@ -81,7 +81,7 @@ namespace hubdejogos.Models.Chess{
 
         public void AddPiece(Board board, int destinyLine, int destinyColumn){
             if(SelectedPiece != null){
-                Position[destinyLine, destinyColumn] = SelectedPiece;
+                Position[destinyLine,destinyColumn] = SelectedPiece;
                 SelectedPiece.Line = destinyLine;
                 SelectedPiece.Column = destinyColumn;
             }
@@ -134,11 +134,95 @@ namespace hubdejogos.Models.Chess{
         }
 
         public bool isValidDestiny(Board board, int destinyLine, int destinyColumn){
-            if(SelectedPiece != null)
+            if(SelectedPiece != null){
+                if(SelectedPiece.Image == "T" && (SelectedPiece.firstMove && (destinyColumn==3||destinyColumn==5)) || (SelectedPiece.Image == "K" && (SelectedPiece.firstMove && (destinyColumn==2||destinyColumn==6)))){
+                    return specialMoveRock(destinyLine, destinyColumn);
+                }
                 return SelectedPiece.moveValidate(board, destinyLine, destinyColumn);
+            }
             else
                 return false;
         }
+
+        private bool specialMoveRock(int destinyLine, int destinyColumn){
+            if(SelectedPiece?.Color == Color.WHITE){
+                if(destinyColumn == 2|| destinyColumn == 3){
+                    if((Position[0,0].firstMove && Position[0,4].firstMove) != true)
+                        return false;
+
+                    for(int i=1; i<=3; i++){
+                        if(Position[0,i] != null && Position[0,1].Color == SelectedPiece?.Color){
+                            return false;
+                        }
+                    }
+                    Position[0,3] = Position[0,0];
+                    Position[0,3].firstMove = false;
+                    Position[0,0] = null;
+                    Position[0,2] = Position[0,4];
+                    Position[0,2].firstMove = false;
+                    Position[0,4] = null;
+                }
+                else if(destinyColumn == 5 || destinyColumn == 6){
+                    if((Position[0,7].firstMove && Position[0,4].firstMove) != true)
+                        return false;
+                        
+                    for(int i=6; i>=5; i--){
+                        if(Position[0,i] != null && Position[0,1].Color == SelectedPiece?.Color){
+                            return false;
+                        }
+                    }
+                    Position[0,5] = Position[0,7];
+                    Position[0,5].firstMove = false;
+                    Position[0,7] = null;
+                    Position[0,6] = Position[0,4];
+                    Position[0,6].firstMove = false;
+                    Position[0,4] = null;
+                }
+                return true;
+            }
+            else if(SelectedPiece?.Color == Color.BLACK){
+                if(destinyColumn == 2|| destinyColumn == 3){
+                    if((Position[7,0].firstMove && Position[7,4].firstMove) != true)
+                        return false;
+
+                    for(int i=1; i<=3; i++){
+                        if(Position[7,i] != null && Position[7,1].Color == SelectedPiece?.Color){
+                            return false;
+                        }
+                    }
+                    Position[7,3] = Position[7,0];
+                    Position[7,3].firstMove = false;
+                    Position[7,0] = null;
+                    Position[7,2] = Position[7,4];
+                    Position[7,2].firstMove = false;
+                    Position[7,4] = null;
+                }
+                else if(destinyColumn == 5 || destinyColumn == 6){
+                    if((Position[7,7].firstMove && Position[7,4].firstMove) != true)
+                        return false;
+                        
+                    for(int i=6; i>=5; i--){
+                        if(Position[7,i] != null && Position[7,1].Color == SelectedPiece?.Color){
+                            return false;
+                        }
+                    }
+                    Position[7,5] = Position[7,7];
+                    Position[7,5].firstMove = false;
+                    Position[7,7] = null;
+                    Position[7,6] = Position[7,4];
+                    Position[7,6].firstMove = false;
+                    Position[7,4] = null;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        /* private bool specialMoveEnPassant(Board board, int destinyLine, int destinyColumn){
+        }
+
+        private bool specialMovePromotion(Board board, int destinyLine, int destinyColumn){
+        } */
 
         public static void ShiftTurn(Board board){
             if(board.Turn == Color.WHITE){

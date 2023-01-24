@@ -2,8 +2,6 @@ namespace hubdejogos.Models.Chess.Pieces{
 
     public class Pawn : Piece{
 
-        private bool firstMove = true;
-
         public Pawn(int line, int column, Color color, string image) : base(line, column, color, image){
         }
 
@@ -40,9 +38,6 @@ namespace hubdejogos.Models.Chess.Pieces{
                 else{
                     return false;
                 }
-                
-                firstMove = false;
-                return true;
             }
             else if(board.Turn == Color.BLACK){
                 if(board.SelectedPiece != null && board.SelectedPiece.Column == destinyColumn){
@@ -71,13 +66,12 @@ namespace hubdejogos.Models.Chess.Pieces{
                 else{
                     return false;
                 }
-                firstMove = false;
-
-                return true;
             }
             else{
                 return false;
             }
+            firstMove = false;
+            return true;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace hubdejogos.Models.Chess.Pieces{
                     return false;
                 }
             }
-
+            firstMove = false;
             return true;
         }
     }

@@ -35,7 +35,7 @@ namespace hubdejogos.Models.Chess.Pieces{
             if(board.SelectedPiece?.Line == destinyLine && board.SelectedPiece.Column == destinyColumn){
                 return false;
             }
-
+            firstMove = false;
             return true;
         }
     }

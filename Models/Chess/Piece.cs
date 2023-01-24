@@ -8,6 +8,7 @@ namespace hubdejogos.Models.Chess{
         public string? Image { get; set; }
         public bool Eliminated { get; set; }
         public bool Selected { get; set; }
+        public bool firstMove { get; set; } = true;
 
         public Piece(int line, int column, Color color, string image){
             Line = line;
